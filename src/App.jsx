@@ -3,6 +3,8 @@ import CharacterCardList from "./Character/CharacterCardList";
 import CharacterDetail from "./Character/CharacterDetail";
 
 function App() {
+  const [selectedGroup, setSelectedGroup] = useState(null)
+
   return (
     <BrowserRouter>
       <Routes>
@@ -13,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

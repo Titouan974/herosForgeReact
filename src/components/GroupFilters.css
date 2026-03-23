@@ -1,0 +1,22 @@
+.group-filters {
+  width: 320px;
+  max-width: 100%;
+  margin-bottom: 16px;
+  color: #ffffff;
+  background: #24243a;
+  border: 1px solid #4c4c72;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.group-filters-summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.group-filters-option {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
