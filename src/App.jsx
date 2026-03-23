@@ -1,12 +1,15 @@
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CharacterCardList from "./Character/CharacterCardList";
-
+import CharacterDetail from "./Character/CharacterDetail";
 
 function App() {
   return (
-    <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
-      <CharacterCardList/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<CharacterCardList />} />
+        <Route path="/characters/:id" element={<CharacterDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
