@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { API_BASE_URL } from "../api/config";
+import "./CharacterDetail.css";
 
 function CharacterDetail() {
   const { id } = useParams();
@@ -12,7 +12,7 @@ function CharacterDetail() {
   useEffect(() => { 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/characters/${id}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/v1/characters/${id}`);
         if (!response.ok) throw new Error("Erreur réseau");
 
         const data = await response.json();
@@ -36,76 +36,36 @@ function CharacterDetail() {
     : "https://via.placeholder.com/200";
 
   return (
-    <div>
-      <h1>{character.name}</h1>
+    <div className="detail-container">
+      <h1 className="detail-title">{character.name}</h1>
 
-      <img src={imageUrl} alt={character.name} />
+      <img
+        src={character.image ?? "/default-avatar.png"}
+        alt={character.name}
+        className="detail-avatar"
+      />
 
-      <p>Classe : {character.class?.name}</p>
-      <p>Race : {character.race?.name}</p>
-      <p>Niveau : {character.level}</p>
+      <p className="detail-info">
+        Classe : {character.class.name} • Race : {character.race.name} • Niveau : {character.level}
+      </p>
 
       <h3>Stats</h3>
-      {character.stats && (
-        <div style={{ maxWidth: "400px" }}>
-          {Object.entries(character.stats).map(([key, value]) => (
-            <div key={key} style={{ marginBottom: "8px" }}>
-              <span style={{ display: "inline-block", width: "120px" }}>
-                {key.toUpperCase()} :
-              </span>
-              <div
-                style={{
-                  display: "inline-block",
-                  width: "200px",
-                  background: "#eee",
-                  borderRadius: "4px",
-                  overflow: "hidden",
-                  verticalAlign: "middle"
-                }}
-              >
-                <div
-                  style={{
-                    width: `${(value / 20) * 100}%`,
-                    background: "#4f46e5",
-                    color: "white",
-                    padding: "2px 4px",
-                    fontSize: "0.8rem"
-                  }}
-                >
-                  {value}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <h3>Compétences de la classe</h3>
-      {character.class?.skills && character.class.skills.length > 0 ? (
-        <ul>
-          {character.class.skills.map((skill) => (
-            <li key={skill.id}>
-              {skill.name} ({skill.ability})
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Aucune compétence renseignée.</p>
-      )}
+      <ul className="detail-stats">
+        <li>Force : {character.strength}</li>
+        <li>Dextérité : {character.dexterity}</li>
+        <li>Constitution : {character.constitution}</li>
+        <li>Intelligence : {character.intelligence}</li>
+        <li>Sagesse : {character.wisdom}</li>
+        <li>Charisme : {character.charisma}</li>
+        <li>PV : {character.healthPoints}</li>
+      </ul>
 
       <h3>Groupes</h3>
-      {character.parties && character.parties.length > 0 ? (
-        <ul>
-          {character.parties.map((g) => (
-            <li key={g.id}>
-              {}
-              {g.name} (max {g.maxSize})
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Ce personnage n'appartient à aucun groupe.</p>
-      )}
+      <ul className="detail-groups">
+        {character.parties.map((p) => (
+          <li key={p.id}>{p.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }

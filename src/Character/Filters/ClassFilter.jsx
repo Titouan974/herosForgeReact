@@ -9,10 +9,11 @@ function ClassFilter({ classes, selectedClasses, setSelectedClasses }) {
   };
 
   return (
-    <div className="dropdown">
-      <p>Classes :</p>
+    <div className="filter-block">
+      <p className="filter-title">Classes :</p>
+
       {classes.map((c) => (
-        <label key={c}>
+        <label key={c} className="filter-option">
           <input
             type="checkbox"
             checked={selectedClasses.includes(c)}

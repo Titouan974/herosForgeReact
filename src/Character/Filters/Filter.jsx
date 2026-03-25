@@ -1,5 +1,6 @@
 import ClassFilter from "./ClassFilter";
 import RaceFilter from "./RaceFilter";
+import "./Filter.css";
 
 function Filters({
   searchNames,
@@ -20,11 +21,13 @@ function Filters({
   return (
     <>
       <div className="filters">
+
         <input
           type="text"
           placeholder="Rechercher noms (virgule)"
           value={searchNames}
           onChange={(e) => setSearchNames(e.target.value)}
+          className="filter-input"
         />
 
         <input
@@ -32,6 +35,7 @@ function Filters({
           placeholder="Noms bannis (virgule)"
           value={bannedNames}
           onChange={(e) => setBannedNames(e.target.value)}
+          className="filter-input"
         />
 
         <ClassFilter

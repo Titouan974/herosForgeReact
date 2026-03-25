@@ -9,10 +9,11 @@ function RaceFilter({ races, selectedRaces, setSelectedRaces }) {
   };
 
   return (
-    <div className="dropdown">
-      <p>Races :</p>
+    <div className="filter-block">
+      <p className="filter-title">Races :</p>
+
       {races.map((r) => (
-        <label key={r}>
+        <label key={r} className="filter-option">
           <input
             type="checkbox"
             checked={selectedRaces.includes(r)}

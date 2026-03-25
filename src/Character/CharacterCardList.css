@@ -1,47 +1,53 @@
+/* ============================
+   LISTE DES PERSONNAGES
+   ============================ */
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* Carte */
 .card {
-  width: 260px;
-  background: linear-gradient(145deg, #1e1e2f, #2a2a40);
-  border-radius: 16px;
+  background: #1a1a2e;
+  border: 1px solid #2d2d44;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-  color: #fff;
-  transition: transform 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  transition: 0.3s ease;
+  cursor: pointer;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: translateY(-6px);
+  border-color: #d4af37;
+  box-shadow: 0 10px 25px rgba(212,175,55,0.3);
 }
 
-.cardAvatar {
+/* Image */
+.card-avatar {
   width: 100%;
   height: 180px;
   object-fit: cover;
+  background: #2d2d44;
 }
 
-.cardContent {
+/* Contenu */
+.card-content {
   padding: 16px;
-}
-
-.cardName {
-  margin: 0;
-  font-size: 1.4rem;
   text-align: center;
-  color: #ffd700;
 }
 
-.cardInfo {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  line-height: 1.5;
+.card-content h2 {
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+  color: #d4af37;
 }
 
-.cardInfo p {
+.card-content p {
   margin: 4px 0;
-}
-
-.sort {
-  background: #333;
-  padding: 10px;
-  border-radius: 8px;
-  color: white;
+  font-size: 0.9rem;
+  color: #c0c0c0;
 }

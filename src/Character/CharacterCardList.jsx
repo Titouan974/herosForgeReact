@@ -5,6 +5,9 @@ import { API_BASE_URL } from "../api/config";
 import "./CharacterCardList.css";
 
 function CharacterCardList() {
+
+  console.log("CharacterCardList MONTÉ !");
+
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,7 +25,7 @@ function CharacterCardList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/characters`);
+        const response = await fetch("http://127.0.0.1:8000/api/v1/characters");
         if (!response.ok) throw new Error("Erreur réseau");
 
         const data = await response.json();
@@ -37,30 +40,35 @@ function CharacterCardList() {
     fetchData();
   }, []);
 
-  // valeurs uniques (noms de classes / races)
-  const classes = [...new Set(characters.map(c => c.class?.name))].filter(Boolean);
-  const races = [...new Set(characters.map(c => c.race?.name))].filter(Boolean);
+  // valeurs uniques
+  const classes = [...new Set(characters.map(c => c.class.name))];
+  const races = [...new Set(characters.map(c => c.race.name))];
+
 
   // filtres
   const filtered = characters
     .filter((c) => {
-      const searchList = searchNames.toLowerCase().split(",").map(n => n.trim()).filter(Boolean);
-      const bannedList = bannedNames.toLowerCase().split(",").map(n => n.trim()).filter(Boolean);
+      const searchList = searchNames
+  .toLowerCase()
+  .split(",")
+  .map(n => n.trim())
+  .filter(n => n !== "");
 
-      const nameLower = c.name.toLowerCase();
+const bannedList = bannedNames
+  .toLowerCase()
+  .split(",")
+  .map(n => n.trim())
+  .filter(n => n !== "");
 
       const nameMatch =
-        (searchList.length === 0 || searchList.some(n => nameLower.includes(n))) &&
-        !bannedList.some(n => nameLower.includes(n));
-
-      const className = c.class?.name || "";
-      const raceName = c.race?.name || "";
+        (searchNames === "" || searchList.some(n => c.name.toLowerCase().includes(n))) &&
+        !bannedList.some(n => c.name.toLowerCase().includes(n));
 
       const classMatch =
-        selectedClasses.length === 0 || selectedClasses.includes(className);
+        selectedClasses.length === 0 || selectedClasses.includes(c.class.name);
 
       const raceMatch =
-        selectedRaces.length === 0 || selectedRaces.includes(raceName);
+        selectedRaces.length === 0 || selectedRaces.includes(c.race.name);
 
       return nameMatch && classMatch && raceMatch;
     })

@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CharacterCardList from "./Character/CharacterCardList";
 import CharacterDetail from "./Character/CharacterDetail";
-import GroupsPage from "./groups";
+import "./App.css"
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
