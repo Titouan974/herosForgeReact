@@ -4,6 +4,9 @@ import Filters from "./Filters/Filter";
 import "./CharacterCardList.css";
 
 function CharacterCardList() {
+
+  console.log("CharacterCardList MONTÉ !");
+
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,7 +24,7 @@ function CharacterCardList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("URL A REMPLIR");
+        const response = await fetch("http://127.0.0.1:8000/api/v1/characters");
         if (!response.ok) throw new Error("Erreur réseau");
 
         const data = await response.json();
@@ -37,50 +40,59 @@ function CharacterCardList() {
   }, []);
 
   // valeurs uniques
-  const classes = [...new Set(characters.map(c => c.characterclass))];
-  const races = [...new Set(characters.map(c => c.race))];
+  const classes = [...new Set(characters.map(c => c.class.name))];
+  const races = [...new Set(characters.map(c => c.race.name))];
+
 
   // filtre
   const filtered = characters
-  .filter((c) => {
-    const searchList = searchNames.toLowerCase().split(",").map(n => n.trim());
-    const bannedList = bannedNames.toLowerCase().split(",").map(n => n.trim());
+    .filter((c) => {
+      const searchList = searchNames
+  .toLowerCase()
+  .split(",")
+  .map(n => n.trim())
+  .filter(n => n !== "");
 
-    const nameMatch =
-      (searchNames === "" || searchList.some(n => c.name.toLowerCase().includes(n))) &&
-      !bannedList.some(n => c.name.toLowerCase().includes(n));
+const bannedList = bannedNames
+  .toLowerCase()
+  .split(",")
+  .map(n => n.trim())
+  .filter(n => n !== "");
 
-    const classMatch =
-      selectedClasses.length === 0 || selectedClasses.includes(c.characterclass);
+      const nameMatch =
+        (searchNames === "" || searchList.some(n => c.name.toLowerCase().includes(n))) &&
+        !bannedList.some(n => c.name.toLowerCase().includes(n));
 
-    const raceMatch =
-      selectedRaces.length === 0 || selectedRaces.includes(c.race);
+      const classMatch =
+        selectedClasses.length === 0 || selectedClasses.includes(c.class.name);
 
-    return nameMatch && classMatch && raceMatch;
-  })
+      const raceMatch =
+        selectedRaces.length === 0 || selectedRaces.includes(c.race.name);
 
-  // tri
-  .sort((a, b) => {
-    let result = 0;
+      return nameMatch && classMatch && raceMatch;
+    })
 
-    if (sortBy === "name") {
-      result = a.name.localeCompare(b.name);
-    }
+    // tri
+    .sort((a, b) => {
+      let result = 0;
 
-    if (sortBy === "level") {
-      result = a.level - b.level;
-    }
+      if (sortBy === "name") {
+        result = a.name.localeCompare(b.name);
+      }
 
-    if (sortBy === "both") {
-      // tri par nom puis niveau
-      result = a.name.localeCompare(b.name);
-      if (result === 0) {
+      if (sortBy === "level") {
         result = a.level - b.level;
       }
-    }
 
-    return order === "asc" ? result : -result;
-  });
+      if (sortBy === "both") {
+        result = a.name.localeCompare(b.name);
+        if (result === 0) {
+          result = a.level - b.level;
+        }
+      }
+
+      return order === "asc" ? result : -result;
+    });
 
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;

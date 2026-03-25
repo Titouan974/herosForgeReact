@@ -1,0 +1,53 @@
+/* ============================
+   FILTRES — STYLE GLOBAL
+   ============================ */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #1a1a2e;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #2d2d44;
+  margin-bottom: 1.5rem;
+}
+
+.filter-input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #3a3a55;
+  background: #2d2d44;
+  color: #fff;
+}
+
+.filter-block {
+  background: #2d2d44;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #3a3a55;
+}
+
+.filter-title {
+  font-weight: bold;
+  color: #d4af37;
+  margin-bottom: 6px;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #c0c0c0;
+}
+
+.sort {
+  background: #1a1a2e;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #2d2d44;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

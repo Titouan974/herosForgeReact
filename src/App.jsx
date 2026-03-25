@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CharacterCardList from "./Character/CharacterCardList";
 import CharacterDetail from "./Character/CharacterDetail";
+import "./App.css"
 
 function App() {
-  const [selectedGroup, setSelectedGroup] = useState(null)
 
   return (
     <BrowserRouter>

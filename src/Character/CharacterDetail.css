@@ -1,0 +1,72 @@
+/* ============================
+   PAGE DÉTAIL PERSONNAGE
+   ============================ */
+
+.detail-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #1a1a2e;
+  border: 1px solid #2d2d44;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  color: #ecf0f1;
+}
+
+.detail-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #d4af37;
+  margin-bottom: 1.5rem;
+}
+
+.detail-avatar {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #d4af37;
+  margin-bottom: 1.5rem;
+  background: #2d2d44;
+}
+
+.detail-info {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #c0c0c0;
+  margin-bottom: 2rem;
+}
+
+/* Stats */
+.detail-stats {
+  list-style: none;
+  padding: 1.5rem;
+  background: #2d2d44;
+  border-radius: 8px;
+  border: 1px solid #3a3a55;
+  margin-bottom: 2rem;
+}
+
+.detail-stats li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #3a3a55;
+}
+
+.detail-stats li:last-child {
+  border-bottom: none;
+}
+
+/* Groupes */
+.detail-groups {
+  list-style: none;
+  padding: 1rem;
+  background: #2d2d44;
+  border-radius: 8px;
+  border: 1px solid #3a3a55;
+}
+
+.detail-groups li {
+  color: #d4af37;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
