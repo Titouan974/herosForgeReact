@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import CharacterCard from "./CharacterCard";
 import Filters from "./Filters/Filter";
+import { API_BASE_URL } from "../api/config";
 import "./CharacterCardList.css";
 
 function CharacterCardList() {
@@ -44,7 +45,7 @@ function CharacterCardList() {
   const races = [...new Set(characters.map(c => c.race.name))];
 
 
-  // filtre
+  // filtres
   const filtered = characters
     .filter((c) => {
       const searchList = searchNames

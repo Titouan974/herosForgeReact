@@ -45,3 +45,15 @@
 .group-info p {
   margin: 4px 0;
 }
+
+.groups-page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.groups-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
