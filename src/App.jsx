@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CharacterCardList from "./Character/CharacterCardList";
 import CharacterDetail from "./Character/CharacterDetail";
+import GroupsPage from "./groups";
 
 function App() {
-  const [selectedGroup, setSelectedGroup] = useState(null)
-
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<CharacterCardList />} />
         <Route path="/characters" element={<CharacterCardList />} />
         <Route path="/characters/:id" element={<CharacterDetail />} />
+        <Route path="/groups" element={<GroupsPage />} />
       </Routes>
     </BrowserRouter>
   );
