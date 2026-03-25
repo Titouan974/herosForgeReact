@@ -31,10 +31,6 @@ function CharacterDetail() {
   if (error) return <p>Erreur : {error}</p>;
   if (!character) return <p>Aucun personnage</p>;
 
-  const imageUrl = character.image
-    ? `${API_BASE_URL}/${character.image}`
-    : "https://via.placeholder.com/200";
-
   return (
     <div className="detail-container">
       <h1 className="detail-title">{character.name}</h1>
