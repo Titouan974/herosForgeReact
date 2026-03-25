@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import CharacterCard from "./CharacterCard";
 import Filters from "./Filters/Filter";
+import { API_BASE_URL } from "../api/config";
 import "./CharacterCardList.css";
 
 function CharacterCardList() {
@@ -21,7 +22,7 @@ function CharacterCardList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("URL A REMPLIR");
+        const response = await fetch(`${API_BASE_URL}/api/v1/characters`);
         if (!response.ok) throw new Error("Erreur réseau");
 
         const data = await response.json();
@@ -36,51 +37,55 @@ function CharacterCardList() {
     fetchData();
   }, []);
 
-  // valeurs uniques
-  const classes = [...new Set(characters.map(c => c.characterclass))];
-  const races = [...new Set(characters.map(c => c.race))];
+  // valeurs uniques (noms de classes / races)
+  const classes = [...new Set(characters.map(c => c.class?.name))].filter(Boolean);
+  const races = [...new Set(characters.map(c => c.race?.name))].filter(Boolean);
 
-  // filtre
+  // filtres
   const filtered = characters
-  .filter((c) => {
-    const searchList = searchNames.toLowerCase().split(",").map(n => n.trim());
-    const bannedList = bannedNames.toLowerCase().split(",").map(n => n.trim());
+    .filter((c) => {
+      const searchList = searchNames.toLowerCase().split(",").map(n => n.trim()).filter(Boolean);
+      const bannedList = bannedNames.toLowerCase().split(",").map(n => n.trim()).filter(Boolean);
 
-    const nameMatch =
-      (searchNames === "" || searchList.some(n => c.name.toLowerCase().includes(n))) &&
-      !bannedList.some(n => c.name.toLowerCase().includes(n));
+      const nameLower = c.name.toLowerCase();
 
-    const classMatch =
-      selectedClasses.length === 0 || selectedClasses.includes(c.characterclass);
+      const nameMatch =
+        (searchList.length === 0 || searchList.some(n => nameLower.includes(n))) &&
+        !bannedList.some(n => nameLower.includes(n));
 
-    const raceMatch =
-      selectedRaces.length === 0 || selectedRaces.includes(c.race);
+      const className = c.class?.name || "";
+      const raceName = c.race?.name || "";
 
-    return nameMatch && classMatch && raceMatch;
-  })
+      const classMatch =
+        selectedClasses.length === 0 || selectedClasses.includes(className);
 
-  // tri
-  .sort((a, b) => {
-    let result = 0;
+      const raceMatch =
+        selectedRaces.length === 0 || selectedRaces.includes(raceName);
 
-    if (sortBy === "name") {
-      result = a.name.localeCompare(b.name);
-    }
+      return nameMatch && classMatch && raceMatch;
+    })
 
-    if (sortBy === "level") {
-      result = a.level - b.level;
-    }
+    // tri
+    .sort((a, b) => {
+      let result = 0;
 
-    if (sortBy === "both") {
-      // tri par nom puis niveau
-      result = a.name.localeCompare(b.name);
-      if (result === 0) {
+      if (sortBy === "name") {
+        result = a.name.localeCompare(b.name);
+      }
+
+      if (sortBy === "level") {
         result = a.level - b.level;
       }
-    }
 
-    return order === "asc" ? result : -result;
-  });
+      if (sortBy === "both") {
+        result = a.name.localeCompare(b.name);
+        if (result === 0) {
+          result = a.level - b.level;
+        }
+      }
+
+      return order === "asc" ? result : -result;
+    });
 
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
