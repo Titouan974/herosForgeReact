@@ -11,7 +11,6 @@ function App() {
         <Route path="/" element={<CharacterCardList />} />
         <Route path="/characters" element={<CharacterCardList />} />
         <Route path="/characters/:id" element={<CharacterDetail />} />
-        <Route path="/groups" element={<GroupsPage />} />
       </Routes>
     </BrowserRouter>
   );
